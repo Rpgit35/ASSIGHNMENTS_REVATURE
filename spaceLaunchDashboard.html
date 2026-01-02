@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: coral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .dashboard{
+            background: #ffff;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px;
+        }
+        button{
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: cornflowerblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover{
+           background-color: darkmagenta;
+        }
+        #loading{
+            margin-top: 15px;
+            color: orangered;
+            display: none;
+        }
+        #details{
+            font-size: 20px;
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h2>Space Launch Dashboard 🚀</h2>
+
+        <button onclick="loadlaunch()">Load the latest launch</button>
+
+        <div id="loading">Loading the launch</div>
+        <div id="details"></div>
+    </div>
+
+    <script>
+        function loadlaunch(){
+            const loading=document.getElementById("loading");
+            const details = document.getElementById("details");
+
+            loading.style.display = "block";
+            details.innerHTML="";
+        
+
+        fetch("https://api.spacexdata.com/v4/launches/latest")
+            .then(function(response){
+                if(!response.ok){
+                    throw new Error("API ERROR");
+                }
+                return response.json();
+            })
+            .then(function(data){
+                details.innerHTML = `
+                <strong>Mission Name:</strong> ${data.name}`
+                ;
+
+            })
+            .catch(function(error){
+                details.innerHTML = `
+                <p class = "error">Failed to launch data</p>`
+                ;
+            })
+            .finally(function(){
+                loading.style.display = "none";
+            });
+        }
+    </script>
+
+    
+    
+</body>
+</html>
