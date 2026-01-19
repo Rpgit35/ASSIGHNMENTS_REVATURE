@@ -1,0 +1,102 @@
+import java.util.Scanner;
+class Student {
+
+    String studentId;
+    String studentName;
+    int marks;
+    boolean feePaid;
+
+    Student(String id, String name, int marks, boolean feePaid) {
+        this.studentId = id;
+        this.studentName = name;
+        this.marks = marks;
+        this.feePaid = feePaid;
+    }
+
+    void evaluateStudent() {
+        String result;
+        String grade;
+        String course;
+        String certificate;
+
+        // Part 1: Pass / Fail
+        if (marks >= 40) {
+            result = "Passed";
+        } else {
+            result = "Failed";
+        }
+
+        
+        if (marks >= 85) {
+            grade = "A";
+        } else if (marks >= 70) {
+            grade = "B";
+        } else if (marks >= 50) {
+            grade = "C";
+        } else {
+            grade = "D";
+        }
+
+        
+        if (marks >= 40 && feePaid) {
+            certificate = "Eligible for Certificate";
+        } else {
+            certificate = "Not Eligible for Certificate";
+        }
+
+        
+        if(grade=="A")
+	{
+	course="Data Science";
+        }
+	else if(grade=="B")
+	{
+	course="Java Full Stack";
+	}
+	else if(grade=="C")
+	{
+	course="Web Development";
+	}
+	else if(grade=="D")
+	{
+	course="Basic Programming";
+	}
+	else
+	{
+	course="Counseling";
+	}
+	
+}
+
+
+class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.println("Enter details for Student " + (i + 1));
+
+            System.out.print("Student ID: ");
+            String id = sc.next();
+
+            System.out.print("Student Name: ");
+            String name = sc.next();
+
+            System.out.print("Marks: ");
+            int marks = sc.nextInt();
+
+            System.out.print("Fee Paid : ");
+            boolean feePaid = sc.nextBoolean();
+
+            Student s = new Student(id, name, marks, feePaid);
+            s.evaluateStudent();
+        }
+
+       
+    }
+}
